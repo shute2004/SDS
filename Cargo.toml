@@ -1,0 +1,14 @@
+[package]
+name = "sds_sort"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+crate-type = ["rlib"]
+
+[profile.release]
+opt-level = 3
+lto = true
+strip = "symbols"
+codegen-units = 1
+panic = "abort"
