@@ -6,17 +6,23 @@ The implementation also includes an in-place variant that avoids the full auxili
 
 ## Structure
 
-- `src/sort/predictor.rs` — sampled interpolation predictor.
+- `src/sort/predictor.rs` — crate-internal sampled interpolation predictor.
 - `src/sort/sds.rs` — model building, diffusion, verification, fallback, and in-place variant.
 - `src/main.rs` — minimal executable example.
 - `tests/sds.rs` — correctness checks against Rust's total-order sort.
 
+The predictor is not a public construction API. Its constructor establishes the length, ordering, and finite-value invariants required by the interpolation model, and the prediction path uses bounds-checked slice access. Non-finite user input is handled by the public SDS sorting entry points through total-order fallback sorting.
+
 ## Build and Test
 
 ```bash
-cargo test
+cargo fmt --all -- --check
+cargo clippy --all-targets --all-features -- -D warnings
+cargo test --all-targets
 cargo run --release
 ```
+
+The same format, lint, and test checks are defined in GitHub Actions.
 
 SDS is an experimental algorithm project, not a claim that it universally outperforms standard library sorting. Performance depends on input distribution, size, fallback behavior, and hardware.
 
