@@ -1,5 +1,5 @@
 #[derive(Clone, Copy)]
-pub(crate) struct Predictor<'a> {
+pub struct Predictor<'a> {
     samples: &'a [f64],
     inv_widths: &'a [f64],
     sample_last: usize,
@@ -12,7 +12,7 @@ pub(crate) struct Predictor<'a> {
 
 impl<'a> Predictor<'a> {
     #[inline]
-    pub(crate) fn new(samples: &'a [f64], inv_widths: &'a [f64], bucket_count: usize) -> Self {
+    pub fn new(samples: &'a [f64], inv_widths: &'a [f64], bucket_count: usize) -> Self {
         assert!(!samples.is_empty(), "predictor requires at least one sample");
         assert!(bucket_count > 0, "predictor requires at least one bucket");
         assert_eq!(
@@ -54,7 +54,7 @@ impl<'a> Predictor<'a> {
     }
 
     #[inline(always)]
-    pub(crate) fn predict(&self, x: f64) -> usize {
+    pub fn predict(&self, x: f64) -> usize {
         if x.is_nan() {
             return 0;
         }
