@@ -383,7 +383,7 @@ fn median3(a: f64, b: f64, c: f64) -> f64 {
 }
 
 #[inline]
-pub fn probe_prediction_error(
+pub(crate) fn probe_prediction_error(
     arr: &[f64],
     predictor: &Predictor<'_>,
     max_points: usize,
